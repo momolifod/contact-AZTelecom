@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un contact</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .contact-link {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .contact-link a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .contact-link a:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-link">
+        <h2>Ajouter un contact</h2>
+        <a id="downloadLink" href="#">Télécharger le contact</a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contact = {
+                name: 'Thierry ROZE',
+                phone: '+33485580606',
+                email: 't.roze@aztelecom.fr'
+            };
+
+            const vCardData = `BEGIN:VCARD
+VERSION:3.0
+FN:${contact.name}
+TEL:${contact.phone}
+EMAIL:${contact.email}
+END:VCARD`;
+
+            const blob = new Blob([vCardData], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+            const downloadLink = document.getElementById('downloadLink');
+            downloadLink.href = url;
+            downloadLink.download = `${contact.name}.vcf`;
+        });
+    </script>
+</body>
+</html>
